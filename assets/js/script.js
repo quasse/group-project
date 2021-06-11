@@ -1,13 +1,13 @@
 var loadPage = function () {
   //Loads form for user to fill out
   submitHandler();
+  //There will be an event handler
 };
 
 var submitHandler = function () {
-  //loadStockinfo
-  //loadSeekingAlphaInfo
-  getYahooInfo();
-  getSeekingAlphaInfo();
+  //save search to local storage and append to
+  //getYahooInfo(); - this is commented out so the API does not get called with every save
+  //getSeekingAlphaInfo(); - this too
 };
 
 var getYahooInfo = function () {
@@ -56,13 +56,13 @@ var getSeekingAlphaInfo = function () {
 };
 
 var loadYahooPage = function (data) {
-  //loads YahooFinance inf onto screen
+  //loads YahooFinance info onto screen
   console.log("Inside Yahoo FInance page load function");
   console.log(data);
 };
 
 var loadSeekingAlphaPage = function (data) {
-  //loads stock info onto screen
+  //loads SeekinngAlpha Stock News onto screen
   console.log("inside seeking alpha page function");
   console.log(data);
 };
