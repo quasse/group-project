@@ -1,3 +1,5 @@
+var yahooEl = document.querySelector("#yahoo-row");
+
 var loadPage = function () {
   //Loads form for user to fill out
   submitHandler();
@@ -6,7 +8,7 @@ var loadPage = function () {
 
 var submitHandler = function () {
   //save search to local storage and append to
-  //getYahooInfo(); - this is commented out so the API does not get called with every save
+  getYahooInfo();
   //getSeekingAlphaInfo(); - this too
 };
 
@@ -59,6 +61,76 @@ var loadYahooPage = function (data) {
   //loads YahooFinance info onto screen
   console.log("Inside Yahoo FInance page load function");
   console.log(data);
+
+  //Column to hold header
+  var headerCol = document.createElement("div");
+  headerCol.classList = "col s12";
+
+  //Header element showing the stock name
+  var headerEl = document.createElement("h4");
+  headerEl.textContent = data.quoteType.longName;
+
+  //Append header to column
+  headerCol.append(headerEl);
+
+  //Append column to page element
+  yahooEl.append(headerCol);
+
+  //Row for company information
+  var infoCardRow = document.createElement("div");
+  infoCardRow.classList = "col s4";
+
+  //Card for company information
+  var infoCard = document.createElement("div");
+  infoCard.classList = "card blue-grey lighten-1";
+
+  var infoCardContentEl = document.createElement("div");
+  infoCardContentEl.classList = "card-content white-text";
+
+  var infoCardTitle = document.createElement("span");
+  infoCardTitle.classList = "card-title";
+  infoCardTitle.textContent = "Company information";
+
+  var infoCardContentList = document.createElement("ul");
+  infoCardContentList.classList = "collection";
+
+  //Info on country
+  var infoCardLocation = document.createElement("li");
+  infoCardLocation.classList = "collection-item blue-grey";
+  infoCardLocation.textContent =
+    "Headquarters: " +
+    data.summaryProfile.city +
+    ", " +
+    data.summaryProfile.country;
+
+  //Info on industry
+  var infoCardIndustry = document.createElement("li");
+  infoCardIndustry.classList = "collection-item blue-grey";
+  infoCardIndustry.textContent = "Industry: " + data.summaryProfile.industry;
+
+  //Summary
+  var infoCardWebsite = document.createElement("li");
+  infoCardWebsite.classList = "collection-item blue-grey";
+  infoCardWebsite.textContent = "Website: " + data.summaryProfile.website;
+
+  //Append content list
+  infoCardContentList.append(infoCardLocation);
+  infoCardContentList.append(infoCardIndustry);
+  infoCardContentList.append(infoCardWebsite);
+  //Append title to card
+  infoCardContentEl.append(infoCardTitle);
+  //Append list to card
+  infoCardContentEl.append(infoCardContentList);
+  //Append content to card
+  infoCard.append(infoCardContentEl);
+  //Append card to row
+  infoCardRow.append(infoCard);
+  //Append row to HTML element
+  yahooEl.append(infoCardRow);
+
+  //Card for price and other stock information
+
+  //add card for key statistics
 };
 
 var loadSeekingAlphaPage = function (data) {
