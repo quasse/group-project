@@ -79,7 +79,6 @@ var loadYahooPage = function (data) {
   //Row for company information
   var infoCardRow = document.createElement("div");
   infoCardRow.classList = "col s4";
-
   //Card for company information
   var infoCard = document.createElement("div");
   infoCard.classList = "card blue-grey lighten-1";
@@ -91,6 +90,7 @@ var loadYahooPage = function (data) {
   infoCardTitle.classList = "card-title";
   infoCardTitle.textContent = "Company information";
 
+  //Unordered list for adding info
   var infoCardContentList = document.createElement("ul");
   infoCardContentList.classList = "collection";
 
@@ -128,7 +128,44 @@ var loadYahooPage = function (data) {
   //Append row to HTML element
   yahooEl.append(infoCardRow);
 
+  //Row for price and other stock information
+  var financeCardRow = document.createElement("div");
+  financeCardRow.classList = "col s4";
   //Card for price and other stock information
+  var financeCard = document.createElement("div");
+  financeCard.classList = "card";
+
+  var financeCardContent = document.createElement("div");
+  financeCardContent.classList = "card-content";
+
+  //Title for finance card
+  var financeCardTitle = document.createElement("span");
+  financeCardTitle.classList = "card-title";
+  financeCardTitle.textContent = "Stock Information";
+
+  //List for adding finance info
+  var financeCardList = document.createElement("ul");
+  financeCardList.classList = "collection";
+
+  //Info on price
+  var financeCardPrice = document.createElement("li");
+  financeCardPrice.classList = "collection-item";
+  financeCardPrice.textContent = "Price: $" + data.price.regularMarketPrice.raw;
+
+  //TODO: Add more financial information to finance card
+
+  //Append price to list
+  financeCardList.append(financeCardPrice);
+  //Append title to content
+  financeCardContent.append(financeCardTitle);
+  //Append list to card
+  financeCardContent.append(financeCardList);
+  //Append title to content to card
+  financeCard.append(financeCardContent);
+  //Append Card to row
+  financeCardRow.append(financeCard);
+  //Append financeRow to HTML EL
+  yahooEl.append(financeCardRow);
 
   //add card for key statistics
 };
