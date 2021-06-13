@@ -58,10 +58,6 @@ var getSeekingAlphaInfo = function () {
 };
 
 var loadYahooPage = function (data) {
-  //loads YahooFinance info onto screen
-  console.log("Inside Yahoo FInance page load function");
-  console.log(data);
-
   //Column to hold header
   var headerCol = document.createElement("div");
   headerCol.classList = "col s12";
@@ -81,7 +77,7 @@ var loadYahooPage = function (data) {
   infoCardRow.classList = "col s4";
   //Card for company information
   var infoCard = document.createElement("div");
-  infoCard.classList = "card blue-grey lighten-1";
+  infoCard.classList = "card blue-grey";
 
   var infoCardContentEl = document.createElement("div");
   infoCardContentEl.classList = "card-content white-text";
@@ -185,7 +181,7 @@ var loadYahooPage = function (data) {
   movementCardRow.classList = "col s4";
   //Card for company information
   var movementCard = document.createElement("div");
-  movementCard.classList = "card blue-grey lighten-1";
+  movementCard.classList = "card blue-grey";
 
   var movementCardContentEl = document.createElement("div");
   movementCardContentEl.classList = "card-content white-text";
