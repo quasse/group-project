@@ -152,10 +152,23 @@ var loadYahooPage = function (data) {
   financeCardPrice.classList = "collection-item";
   financeCardPrice.textContent = "Price: $" + data.price.regularMarketPrice.raw;
 
-  //TODO: Add more financial information to finance card
+  //Info on market cap
+  var financeCardMarketCap = document.createElement("li");
+  financeCardMarketCap.classList = "collection-item";
+  financeCardMarketCap.textContent = "Market Cap: $" + data.price.marketCap.fmt;
+
+  //info on profit margin
+  var financeCardProfitMargin = document.createElement("li");
+  financeCardProfitMargin.classList = "collection-item";
+  financeCardProfitMargin.textContent =
+    "Profit Margin: " + data.financialData.profitMargins.fmt;
 
   //Append price to list
   financeCardList.append(financeCardPrice);
+  //append market cap to list
+  financeCardList.append(financeCardMarketCap);
+  //Append profit margin info to list
+  financeCardList.append(financeCardProfitMargin);
   //Append title to content
   financeCardContent.append(financeCardTitle);
   //Append list to card
@@ -167,7 +180,58 @@ var loadYahooPage = function (data) {
   //Append financeRow to HTML EL
   yahooEl.append(financeCardRow);
 
-  //add card for key statistics
+  //add row for stock movement data
+  var movementCardRow = document.createElement("div");
+  movementCardRow.classList = "col s4";
+  //Card for company information
+  var movementCard = document.createElement("div");
+  movementCard.classList = "card blue-grey lighten-1";
+
+  var movementCardContentEl = document.createElement("div");
+  movementCardContentEl.classList = "card-content white-text";
+
+  var movementCardTitle = document.createElement("span");
+  movementCardTitle.classList = "card-title";
+  movementCardTitle.textContent = "Stock Movement";
+
+  //Unordered list for adding info
+  var movementCardContentList = document.createElement("ul");
+  movementCardContentList.classList = "collection";
+
+  //Info on price high
+  var movementCardHigh = document.createElement("div");
+  movementCardHigh.classList = "collection-item blue-grey";
+  movementCardHigh.textContent =
+    "52 Week High: $" + data.summaryDetail.fiftyTwoWeekHigh.raw;
+
+  //Info on price low
+  var movementCardLow = document.createElement("div");
+  movementCardLow.classList = "collection-item blue-grey";
+  movementCardLow.textContent =
+    "52 Week Low: $" + data.summaryDetail.fiftyTwoWeekLow.raw;
+
+  //Info on stock volume
+  var movementCardVol = document.createElement("div");
+  movementCardVol.classList = "collection-item blue-grey";
+  movementCardVol.textContent =
+    "Average Volume: " + data.summaryDetail.averageVolume.fmt;
+
+  //Append price high to list
+  movementCardContentList.append(movementCardHigh);
+  //Append price low to list
+  movementCardContentList.append(movementCardLow);
+  //Append volume to list
+  movementCardContentList.append(movementCardVol);
+  //Append title to content
+  movementCardContentEl.append(movementCardTitle);
+  //Append list to card
+  movementCardContentEl.append(movementCardContentList);
+  //Append content to card
+  movementCard.append(movementCardContentEl);
+  //Append card to row
+  movementCardRow.append(movementCard);
+  //Append movementCardRow to HTML El
+  yahooEl.append(movementCardRow);
 };
 
 var loadSeekingAlphaPage = function (data) {
