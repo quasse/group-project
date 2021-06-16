@@ -3,13 +3,8 @@ var seekingAlphaEl = document.querySelector("#seekingAlpha-row");
 var userInputEl = document.querySelector("#user-input");
 var userSubmitEl = document.querySelector("#user-form");
 
-var loadPage = function () {
-  //Loads form for user to fill out
-  submitHandler();
-  //There will be an event handler
-};
-
 var submitHandler = function (event) {
+  console.log("submit");
   event.preventDefault();
 
   var stockInput = userInputEl.value.trim();
@@ -308,6 +303,6 @@ $("#search").on("click", function () {
 
 //loads the search resault (currently only after search is clicked again)
 recentSearches = JSON.parse(localStorage.getItem("recentSearches"));
-console.log(storedHistory);
 searchHistory.appendChild(recentSearches);
+
 userSubmitEl.addEventListener("submit", submitHandler);
