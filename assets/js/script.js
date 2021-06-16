@@ -8,14 +8,16 @@ var loadPage = function () {
 
 var submitHandler = function () {
   //save search to local storage and append to
-  getYahooInfo();
+  getYahooInfo("aapl");
   //getSeekingAlphaInfo(); - this too
 };
 
-var getYahooInfo = function () {
+var getYahooInfo = function (userInput) {
   //fetch API
   fetch(
-    "https://apidojo-yahoo-finance-v1.p.rapidapi.com/stock/v2/get-summary?symbol=AMRN&region=US",
+    "https://apidojo-yahoo-finance-v1.p.rapidapi.com/stock/v2/get-summary?symbol=" +
+      userInput +
+      "&region=US",
     {
       method: "GET",
       headers: {
