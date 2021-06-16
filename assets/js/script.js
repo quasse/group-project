@@ -9,7 +9,7 @@ var loadPage = function () {
 var submitHandler = function () {
   //save search to local storage and append to
   getYahooInfo("aapl");
-  //getSeekingAlphaInfo(); - this too
+  getSeekingAlphaInfo("aapl");
 };
 
 var getYahooInfo = function (userInput) {
@@ -37,9 +37,11 @@ var getYahooInfo = function (userInput) {
     });
 };
 
-var getSeekingAlphaInfo = function () {
+var getSeekingAlphaInfo = function (userInput) {
   fetch(
-    "https://seeking-alpha.p.rapidapi.com/news/list?id=aapl&until=0&size=20",
+    "https://seeking-alpha.p.rapidapi.com/news/list?id=" +
+      userInput +
+      "&until=0&size=20",
     {
       method: "GET",
       headers: {
