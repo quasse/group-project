@@ -1,4 +1,7 @@
 var yahooEl = document.querySelector("#yahoo-row");
+var seekingAlphaEl = document.querySelector("#seekingAlpha-row");
+var userInputEl = document.querySelector("#user-input");
+var userSubmitEl = document.querySelector("#user-form");
 
 var loadPage = function () {
   //Loads form for user to fill out
@@ -6,10 +9,14 @@ var loadPage = function () {
   //There will be an event handler
 };
 
-var submitHandler = function () {
+var submitHandler = function (event) {
+  event.preventDefault();
+
+  var stockInput = userInputEl.value.trim();
+
   //save search to local storage and append to
-  getYahooInfo("aapl");
-  //getSeekingAlphaInfo(); - this too
+  getYahooInfo(stockInput);
+  getSeekingAlphaInfo(stockInput);
 };
 
 var getYahooInfo = function (userInput) {
@@ -37,9 +44,11 @@ var getYahooInfo = function (userInput) {
     });
 };
 
-var getSeekingAlphaInfo = function () {
+var getSeekingAlphaInfo = function (userInput) {
   fetch(
-    "https://seeking-alpha.p.rapidapi.com/news/list?id=aapl&until=0&size=20",
+    "https://seeking-alpha.p.rapidapi.com/news/list?id=" +
+      userInput +
+      "&until=0&size=20",
     {
       method: "GET",
       headers: {
@@ -236,6 +245,33 @@ var loadSeekingAlphaPage = function (data) {
   //loads SeekinngAlpha Stock News onto screen
   console.log("inside seeking alpha page function");
   console.log(data);
+
+  var newsArr = data.data;
+
+  for (var i = 0; i < newsArr.length; i++) {
+    console.log(newsArr[i].attributes.title);
+
+    //create column
+    var newsCol = document.createElement("div");
+    newsCol.classList = "col s12";
+
+    //Create header news site
+    var newsHeader = document.createElement("h6");
+
+    //Create link
+    var newsLink = document.createElement("a");
+    newsLink.textContent = newsArr[i].attributes.title;
+    newsLink.href = "https://www.seekingalpha.com" + newsArr[i].links.self;
+
+    //Append link to header
+    newsHeader.append(newsLink);
+
+    //Append link to column
+    newsCol.append(newsHeader);
+
+    //Append to col to page
+    seekingAlphaEl.append(newsCol);
+  }
 };
 
 var recentSearches = []; // create an array to store all search resaults
@@ -274,4 +310,4 @@ $("#search").on("click", function () {
 recentSearches = JSON.parse(localStorage.getItem("recentSearches"));
 console.log(storedHistory);
 searchHistory.appendChild(recentSearches);
-loadPage();
+userSubmitEl.addEventListener("submit", submitHandler);
