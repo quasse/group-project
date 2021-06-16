@@ -2,18 +2,29 @@ var yahooEl = document.querySelector("#yahoo-row");
 var seekingAlphaEl = document.querySelector("#seekingAlpha-row");
 var userInputEl = document.querySelector("#user-input");
 var userSubmitEl = document.querySelector("#user-form");
+var historyBoxEl = document.querySelector("#searchHistory");
+
+//Array to hold search history
+var recentSearches = []; // create an array to store all search resaults
 
 var submitHandler = function (event) {
-  console.log("submit");
   event.preventDefault();
 
   var stockInput = userInputEl.value.trim();
 
-  //save search to local storage and append to
-  getYahooInfo(stockInput);
-  getSeekingAlphaInfo(stockInput);
+  if (stockInput) {
+    //TODO Clear old content
+
+    //save search to local storage and append to
+    getYahooInfo(stockInput);
+    getSeekingAlphaInfo(stockInput);
+    searchFunction(stockInput);
+  } else {
+    //TODO ADD modal to give user an error message
+  }
 };
 
+// Fetches data from Yahoo using API
 var getYahooInfo = function (userInput) {
   //fetch API
   fetch(
@@ -39,6 +50,7 @@ var getYahooInfo = function (userInput) {
     });
 };
 
+// Fetches news from Seeking Alpha using its API
 var getSeekingAlphaInfo = function (userInput) {
   fetch(
     "https://seeking-alpha.p.rapidapi.com/news/list?id=" +
@@ -64,6 +76,9 @@ var getSeekingAlphaInfo = function (userInput) {
 };
 
 var loadYahooPage = function (data) {
+  //Clear box
+  yahooEl.innerHTML = "";
+
   //Column to hold header
   var headerCol = document.createElement("div");
   headerCol.classList = "col s12";
@@ -236,16 +251,14 @@ var loadYahooPage = function (data) {
   yahooEl.append(movementCardRow);
 };
 
+//loads SeekinngAlpha Stock News onto screen
 var loadSeekingAlphaPage = function (data) {
-  //loads SeekinngAlpha Stock News onto screen
-  console.log("inside seeking alpha page function");
-  console.log(data);
+  //Clear content
+  seekingAlphaEl.innerHTML = "";
 
   var newsArr = data.data;
 
   for (var i = 0; i < newsArr.length; i++) {
-    console.log(newsArr[i].attributes.title);
-
     //create column
     var newsCol = document.createElement("div");
     newsCol.classList = "col s12";
@@ -269,12 +282,10 @@ var loadSeekingAlphaPage = function (data) {
   }
 };
 
-var recentSearches = []; // create an array to store all search resaults
+//function to save searches is initizialized after search button is clicked
+var searchFunction = function (data) {
+  recentSearches.push(data); // This line puts the value from the text box in an array
 
-//function is initizialized after search button is clicked
-
-function searchFunction(data) {
-  recentSearches.push($("#textboxSearch").val()); // This line puts the value from the text box in an array
   $("#textboxSearch").val(""); //  clear the text box after search
   $("#searchHistory").text(""); //clear the seach history window then repopulate with the new array
 
@@ -289,20 +300,33 @@ function searchFunction(data) {
         "</li>"
     );
   });
-}
 
-function addtotextbox(id) {
-  $("#textboxSearch").val(recentSearches[id]);
-}
-
-// saves the search resaults to local storage after search button is clicked
-$("#search").on("click", function () {
+  // saves the search resaults to local storage after search button is clicked
   localStorage.setItem("recentSearches", JSON.stringify(recentSearches));
-  console.log(localStorage);
-});
+};
 
-//loads the search resault (currently only after search is clicked again)
-recentSearches = JSON.parse(localStorage.getItem("recentSearches"));
-searchHistory.appendChild(recentSearches);
+//loads searches from local storage
+var loadSearches = function () {
+  recentSearches = JSON.parse(localStorage.getItem("recentSearches"));
+  //loads the search resault if there is anything saved in localstorage
+  if (recentSearches) {
+    $.each(recentSearches, function (index, value) {
+      $("#searchHistory").append(
+        "<li class='historyItem'  onclick='addtotextbox(" +
+          index +
+          ")'>" +
+          value +
+          "</li>"
+      );
+    });
+  } else {
+    recentSearches = [];
+  }
+};
 
+var addtotextbox = function (id) {
+  $("#textboxSearch").val(recentSearches[id]);
+};
+
+loadSearches();
 userSubmitEl.addEventListener("submit", submitHandler);
