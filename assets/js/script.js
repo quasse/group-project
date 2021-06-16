@@ -1,5 +1,7 @@
 var yahooEl = document.querySelector("#yahoo-row");
 var seekingAlphaEl = document.querySelector("#seekingAlpha-row");
+var userInputEl = document.querySelector("#user-input");
+var userSubmitEl = document.querySelector("#user-form");
 
 var loadPage = function () {
   //Loads form for user to fill out
@@ -7,10 +9,14 @@ var loadPage = function () {
   //There will be an event handler
 };
 
-var submitHandler = function () {
+var submitHandler = function (event) {
+  event.preventDefault();
+
+  var stockInput = userInputEl.value.trim();
+
   //save search to local storage and append to
-  getYahooInfo("aapl");
-  getSeekingAlphaInfo("aapl");
+  getYahooInfo(stockInput);
+  getSeekingAlphaInfo(stockInput);
 };
 
 var getYahooInfo = function (userInput) {
@@ -268,4 +274,4 @@ var loadSeekingAlphaPage = function (data) {
   }
 };
 
-loadPage();
+userSubmitEl.addEventListener("submit", submitHandler);
