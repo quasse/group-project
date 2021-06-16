@@ -1,4 +1,5 @@
 var yahooEl = document.querySelector("#yahoo-row");
+var seekingAlphaEl = document.querySelector("#seekingAlpha-row");
 
 var loadPage = function () {
   //Loads form for user to fill out
@@ -238,6 +239,33 @@ var loadSeekingAlphaPage = function (data) {
   //loads SeekinngAlpha Stock News onto screen
   console.log("inside seeking alpha page function");
   console.log(data);
+
+  var newsArr = data.data;
+
+  for (var i = 0; i < newsArr.length; i++) {
+    console.log(newsArr[i].attributes.title);
+
+    //create column
+    var newsCol = document.createElement("div");
+    newsCol.classList = "col s12";
+
+    //Create header news site
+    var newsHeader = document.createElement("h6");
+
+    //Create link
+    var newsLink = document.createElement("a");
+    newsLink.textContent = newsArr[i].attributes.title;
+    newsLink.href = "https://www.seekingalpha.com" + newsArr[i].links.self;
+
+    //Append link to header
+    newsHeader.append(newsLink);
+
+    //Append link to column
+    newsCol.append(newsHeader);
+
+    //Append to col to page
+    seekingAlphaEl.append(newsCol);
+  }
 };
 
 loadPage();
