@@ -15,7 +15,21 @@
     <h1 class="teal lighten-2 center-align">Stock News</h1>
     <div class="container">
       <div class="row" id="yahoo-row"></div>
+      <input type="text" id="textboxSearch" />
+      <button id="search" onclick="searchFunction()">Search</button><br />
+      Search History:
+      <div
+        style="
+          border: 1px solid green;
+          width: 400px;
+          height: 300px;
+          overflow-y: scroll;
+        "
+      >
+        <div id="searchHistory"></div>
+      </div>
     </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="assets/js/script.js"></script>
   </body>
 </html>
