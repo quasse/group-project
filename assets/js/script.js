@@ -326,6 +326,8 @@ var loadSearches = function () {
 
 function addtotextbox(id) {
   $("#user-input").val(recentSearches[id]);
+  getYahooInfo(recentSearches[id]);
+  getSeekingAlphaInfo(recentSearches[id]);
 }
 
 loadSearches();
