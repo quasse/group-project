@@ -286,7 +286,7 @@ var loadSeekingAlphaPage = function (data) {
 var searchFunction = function (data) {
   recentSearches.push(data); // This line puts the value from the text box in an array
 
-  $("#textboxSearch").val(""); //  clear the text box after search
+  $("#user-input").val(""); //  clear the text box after search
   $("#searchHistory").text(""); //clear the seach history window then repopulate with the new array
 
   // the function below loops through the array and adds each item in the array
@@ -324,9 +324,9 @@ var loadSearches = function () {
   }
 };
 
-var addtotextbox = function (id) {
-  $("#textboxSearch").val(recentSearches[id]);
-};
+function addtotextbox(id) {
+  $("#user-input").val(recentSearches[id]);
+}
 
 loadSearches();
 userSubmitEl.addEventListener("submit", submitHandler);

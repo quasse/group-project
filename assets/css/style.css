@@ -5,3 +5,13 @@
 .collection-item {
   border: 0 !important;
 }
+
+#searchHistory {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+#searchHistory li:hover {
+  color: teal;
+}
