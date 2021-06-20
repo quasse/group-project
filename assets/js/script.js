@@ -3,6 +3,10 @@ var seekingAlphaEl = document.querySelector("#seekingAlpha-row");
 var userInputEl = document.querySelector("#user-input");
 var userSubmitEl = document.querySelector("#user-form");
 var historyBoxEl = document.querySelector("#searchHistory");
+var containerEl = document.querySelector("#container");
+var popup = document.getElementById("errorPopup");
+
+var popupIsUp = false;
 
 //Array to hold search history
 var recentSearches = []; // create an array to store all search resaults
@@ -13,14 +17,15 @@ var submitHandler = function (event) {
   var stockInput = userInputEl.value.trim();
 
   if (stockInput) {
-    //TODO Clear old content
-
-    //save search to local storage and append to
+    //save search to local storage and append
+    if (popupIsUp) {
+      popup.classList.toggle("show");
+    }
     getYahooInfo(stockInput);
     getSeekingAlphaInfo(stockInput);
     searchFunction(stockInput);
   } else {
-    //TODO ADD modal to give user an error message
+    displayErrorModal();
   }
 };
 
@@ -46,7 +51,7 @@ var getYahooInfo = function (userInput) {
       loadYahooPage(data);
     })
     .catch((err) => {
-      console.error(err);
+      displayErrorModal();
     });
 };
 
@@ -322,6 +327,13 @@ var loadSearches = function () {
   } else {
     recentSearches = [];
   }
+};
+
+//displays error modal
+var displayErrorModal = function () {
+  console.log("in display modal");
+  popup.classList.toggle("show");
+  popupIsUp = true;
 };
 
 function addtotextbox(id) {
