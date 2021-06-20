@@ -100,7 +100,7 @@ var loadYahooPage = function (data) {
 
   //Row for company information
   var infoCardRow = document.createElement("div");
-  infoCardRow.classList = "col s4";
+  infoCardRow.classList = "col s12 m4";
   //Card for company information
   var infoCard = document.createElement("div");
   infoCard.classList = "card blue-grey";
@@ -152,7 +152,7 @@ var loadYahooPage = function (data) {
 
   //Row for price and other stock information
   var financeCardRow = document.createElement("div");
-  financeCardRow.classList = "col s4";
+  financeCardRow.classList = "col m4 s12";
   //Card for price and other stock information
   var financeCard = document.createElement("div");
   financeCard.classList = "card";
@@ -204,7 +204,7 @@ var loadYahooPage = function (data) {
 
   //add row for stock movement data
   var movementCardRow = document.createElement("div");
-  movementCardRow.classList = "col s4";
+  movementCardRow.classList = "col m4 s12";
   //Card for company information
   var movementCard = document.createElement("div");
   movementCard.classList = "card blue-grey";
