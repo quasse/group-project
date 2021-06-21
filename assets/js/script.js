@@ -6,8 +6,6 @@ var historyBoxEl = document.querySelector("#searchHistory");
 var containerEl = document.querySelector("#container");
 var popup = document.getElementById("errorPopup");
 
-var popupIsUp = false;
-
 //Array to hold search history
 var recentSearches = []; // create an array to store all search resaults
 
@@ -17,10 +15,10 @@ var submitHandler = function (event) {
   var stockInput = userInputEl.value.trim();
 
   if (stockInput) {
+    //clear error message if present
+    popup.innerHTML = "";
+
     //save search to local storage and append
-    if (popupIsUp) {
-      popup.classList.toggle("show");
-    }
     getYahooInfo(stockInput);
     getSeekingAlphaInfo(stockInput);
     searchFunction(stockInput);
@@ -332,8 +330,15 @@ var loadSearches = function () {
 //displays error modal
 var displayErrorModal = function () {
   console.log("in display modal");
-  popup.classList.toggle("show");
-  popupIsUp = true;
+  //popup.classList.toggle("show");
+  //popupIsUp = true;
+  var warningEl = document.createElement("div");
+  warningEl.classList = "card-panel red lighten-2";
+  var warningP = document.createElement("p");
+  warningP.textContent =
+    "Unfortunately, we could not load your request. Please try again";
+  warningEl.append(warningP);
+  popup.append(warningEl);
 };
 
 function addtotextbox(id) {
