@@ -37,7 +37,7 @@ var getYahooInfo = function (userInput) {
     {
       method: "GET",
       headers: {
-        "x-rapidapi-key": "3278eeb05dmsh2bd0e74742e9284p16c8fcjsn01bbb5e74c2e",
+        "x-rapidapi-key": "5440ae91f7mshfe3d226b4826623p12102cjsn0aa27eef876a",
         "x-rapidapi-host": "apidojo-yahoo-finance-v1.p.rapidapi.com",
       },
     }
@@ -329,9 +329,6 @@ var loadSearches = function () {
 
 //displays error modal
 var displayErrorModal = function () {
-  console.log("in display modal");
-  //popup.classList.toggle("show");
-  //popupIsUp = true;
   var warningEl = document.createElement("div");
   warningEl.classList = "card-panel red lighten-2";
   var warningP = document.createElement("p");
